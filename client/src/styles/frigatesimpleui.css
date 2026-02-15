@@ -1,0 +1,300 @@
+/* FrigateSimpleUI Theme Styling */
+:root {
+  /* Primary colors */
+  --frigatesimpleui-primary: hsl(25, 8%, 31%);
+  --frigatesimpleui-secondary: hsl(35, 89%, 83%);
+  --frigatesimpleui-accent: hsl(35, 80%, 90%);
+  --frigatesimpleui-foreground: hsl(30, 6%, 25%);
+  --frigatesimpleui-background: hsl(0, 0%, 100%);
+  
+  /* Secondary colors */
+  --frigatesimpleui-warning: hsl(38, 100%, 50%);
+  --frigatesimpleui-success: hsl(145, 31%, 54%);
+  --frigatesimpleui-danger: hsl(0, 100%, 69%);
+  
+  /* UI elements */
+  --frigatesimpleui-card-bg: hsl(0, 0%, 100%);
+  --frigatesimpleui-input-bg: hsl(35, 10%, 94%);
+  --frigatesimpleui-border: hsl(35, 10%, 90%);
+  
+  /* Shadow */
+  --frigatesimpleui-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  
+  /* Border radius */
+  --frigatesimpleui-border-radius: 16px;
+}
+
+/* Logo styling */
+.frigatesimpleui-logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s;
+}
+
+.logo-container:hover {
+  transform: scale(1.05);
+}
+
+.logo-icon {
+  position: relative;
+  margin-right: 10px;
+}
+
+.icon-bg {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(to bottom right, #fef3c7, #fde68a);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.logo-container:hover .icon-bg {
+  transform: rotate(3deg);
+  background: linear-gradient(to bottom right, #fde68a, #f59e0b);
+}
+
+.icon-svg {
+  width: 28px;
+  height: 28px;
+  color: #f59e0b;
+  transition: color 0.3s;
+}
+
+.logo-container:hover .icon-svg {
+  color: #d97706;
+}
+
+.status-indicator {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  background-color: #10b981;
+  border-radius: 50%;
+  border: 2px solid white;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+  letter-spacing: -0.5px;
+}
+
+.logo-text-accent {
+  background: linear-gradient(to right, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.frigatesimpleui-logo-sm .icon-bg {
+  width: 36px;
+  height: 36px;
+}
+
+.frigatesimpleui-logo-sm .icon-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.frigatesimpleui-logo-sm .logo-text {
+  font-size: 1.2rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 576px) {
+  .logo-text {
+    display: none;
+  }
+  
+  .logo-icon {
+    margin-right: 0;
+  }
+}
+
+/* Button styling */
+.btn-frigatesimpleui-primary {
+  background-color: var(--frigatesimpleui-primary);
+  border-color: var(--frigatesimpleui-primary);
+  color: white;
+}
+
+.btn-frigatesimpleui-primary:hover, .btn-frigatesimpleui-primary:focus {
+  background-color: hsl(25, 8%, 25%);
+  border-color: hsl(25, 8%, 25%);
+  color: white;
+}
+
+.btn-frigatesimpleui-secondary {
+  background-color: var(--frigatesimpleui-secondary);
+  border-color: var(--frigatesimpleui-secondary);
+  color: var(--frigatesimpleui-foreground);
+}
+
+.btn-frigatesimpleui-secondary:hover, .btn-frigatesimpleui-secondary:focus {
+  background-color: hsl(35, 89%, 78%);
+  border-color: hsl(35, 89%, 78%);
+  color: var(--frigatesimpleui-foreground);
+}
+
+.btn-outline-frigatesimpleui {
+  color: var(--frigatesimpleui-primary);
+  border-color: var(--frigatesimpleui-primary);
+}
+
+.btn-outline-frigatesimpleui:hover, .btn-outline-frigatesimpleui:focus {
+  background-color: var(--frigatesimpleui-primary);
+  color: white;
+}
+
+/* Card styling */
+.frigatesimpleui-card {
+  border-radius: var(--frigatesimpleui-border-radius);
+  border-color: var(--frigatesimpleui-border);
+  box-shadow: var(--frigatesimpleui-box-shadow);
+  overflow: hidden;
+}
+
+.frigatesimpleui-card .card-header {
+  background-color: var(--frigatesimpleui-accent);
+  border-bottom: 1px solid var(--frigatesimpleui-border);
+  color: var(--frigatesimpleui-foreground);
+}
+
+/* Form styling */
+.form-control.frigatesimpleui-input {
+  background-color: var(--frigatesimpleui-input-bg);
+  border-color: var(--frigatesimpleui-border);
+  border-radius: calc(var(--frigatesimpleui-border-radius) / 2);
+}
+
+.form-control.frigatesimpleui-input:focus {
+  border-color: var(--frigatesimpleui-primary);
+  box-shadow: 0 0 0 0.25rem rgba(110, 100, 95, 0.25);
+}
+
+/* Navbar */
+.frigatesimpleui-navbar {
+  background-color: var(--frigatesimpleui-accent);
+  box-shadow: var(--frigatesimpleui-box-shadow);
+}
+
+.frigatesimpleui-navbar .navbar-brand {
+  color: var(--frigatesimpleui-primary);
+  font-weight: bold;
+}
+
+/* Badge */
+.badge.frigatesimpleui-badge {
+  background-color: var(--frigatesimpleui-secondary);
+  color: var(--frigatesimpleui-foreground);
+}
+
+/* Alert */
+.alert.alert-frigatesimpleui {
+  background-color: var(--frigatesimpleui-accent);
+  border-color: var(--frigatesimpleui-border);
+  color: var(--frigatesimpleui-foreground);
+}
+
+/* Add the FrigateSimpleUI logo SVG */
+.frigatesimpleui-logo-svg {
+  fill: var(--frigatesimpleui-primary);
+}
+
+/* Additional utility classes */
+.text-frigatesimpleui-primary {
+  color: var(--frigatesimpleui-primary) !important;
+}
+
+.bg-frigatesimpleui-primary {
+  background-color: var(--frigatesimpleui-primary) !important;
+}
+
+.text-frigatesimpleui-secondary {
+  color: var(--frigatesimpleui-secondary) !important;
+}
+
+.bg-frigatesimpleui-secondary {
+  background-color: var(--frigatesimpleui-secondary) !important;
+}
+
+/* Page container styling */
+.frigatesimpleui-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Footer */
+.frigatesimpleui-footer {
+  background-color: var(--frigatesimpleui-accent);
+  color: var(--frigatesimpleui-foreground);
+  padding: 1rem 0;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* Add these styles for camera snapshots */
+.camera-snapshot-container {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.camera-snapshot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.camera-snapshot:hover {
+  transform: scale(1.05);
+}
+
+/* Add a placeholder for failed images */
+.camera-snapshot-container::before {
+  content: 'No preview available';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  z-index: -1;
+} 
