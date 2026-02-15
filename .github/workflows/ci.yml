@@ -18,8 +18,20 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm run install:all
+      - name: Run setup.sh
+        run: |
+          chmod +x setup.sh
+          ./setup.sh
 
-      - name: Build
-        run: npm run build
+      - name: Start dev server and verify
+        run: |
+          chmod +x start-dev.sh
+          ./start-dev.sh &
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:3001/api/ping && break
+            sleep 2
+          done
+          curl -sf http://localhost:3001/api/ping
+          # Stop dev server
+          pkill -f "node.*server/index" || true
+          pkill -f "react-scripts" || true
