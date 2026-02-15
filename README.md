@@ -72,9 +72,19 @@ Stop hand-editing YAML. Frigate-SimpleUI lets you discover cameras on your netwo
 ## Prerequisites
 
 - **Node.js** >= 14.x and **npm** >= 6.x
-- A running **Frigate** instance (tested with Frigate <= 0.15) with its API accessible
+- A running **Frigate** instance with its API accessible (see [Supported Frigate versions](#supported-frigate-versions))
 - **go2rtc** running alongside Frigate (usually bundled)
 - **ffmpeg** installed on the machine running Frigate-SimpleUI (used for stream testing and snapshot capture)
+
+### Supported Frigate versions
+
+Frigate-SimpleUI is tested with **Frigate up to 0.15**. It talks to Frigate’s config API (`/api/config/raw`, `/api/config/save`) and go2rtc. Newer Frigate releases may add or change APIs; if something breaks, please open an issue with your Frigate version.
+
+### Auth and security
+
+- **Frigate-SimpleUI** does not implement Frigate’s auth. It assumes it can reach Frigate and go2rtc (same machine, reverse proxy, or trusted network). Run it only on a trusted network or put it behind a reverse proxy with auth.
+- Optional **basic auth** for the SimpleUI itself is available via `AUTH_ENABLED`, `AUTH_USERNAME`, and `AUTH_PASSWORD` in `.env` (see [Environment Variables](#environment-variables)).
+- Never commit `.env` or any file with real passwords; use `.env.example` as a template only.
 
 ---
 
@@ -95,11 +105,11 @@ Copy the example env file and edit it to match your setup:
 cp .env.example .env
 ```
 
-At minimum, set these two values to point at your Frigate instance:
+At minimum, set these to point at your Frigate instance (use your Frigate host IP or hostname):
 
 ```env
-FRIGATESIMPLEUI_URL=http://<your-frigate-ip>:5000
-GO2RTC_URL=http://<your-frigate-ip>:1984
+FRIGATESIMPLEUI_URL=http://<your-frigate-host>:5000
+GO2RTC_URL=http://<your-frigate-host>:1984
 ```
 
 See [Environment Variables](#environment-variables) below for the full list.
@@ -170,16 +180,16 @@ This will:
 |---|---|---|
 | `PORT` | `3001` | Port the Express server listens on |
 | `NODE_ENV` | `development` | `development` or `production` |
-| `FRIGATESIMPLEUI_URL` | `http://192.168.199.3:5000` | Frigate API base URL |
-| `GO2RTC_URL` | `http://192.168.199.3:1984` | go2rtc API base URL |
+| `FRIGATESIMPLEUI_URL` | — | Frigate API base URL (e.g. `http://<your-host>:5000`) |
+| `GO2RTC_URL` | — | go2rtc API base URL (e.g. `http://<your-host>:1984`) |
 | `CORS_ORIGINS` | `*` | Allowed CORS origins (comma-separated) |
 | `LOG_LEVEL` | `info` | Logging level (`debug`, `info`, `warn`, `error`) |
 | `LOG_FILE` | `server.log` | Log file path |
-| `MQTT_HOST` | `192.168.199.2` | MQTT broker host (used in generated config) |
+| `MQTT_HOST` | — | MQTT broker host (used in generated config) |
 | `MQTT_PORT` | `1883` | MQTT broker port |
-| `MQTT_USER` | `mqtt-user` | MQTT username |
-| `MQTT_PASSWORD` | `mqttpassword` | MQTT password |
-| `WEBRTC_CANDIDATES` | `localhost:8555,...` | WebRTC ICE candidates (comma-separated) |
+| `MQTT_USER` | — | MQTT username |
+| `MQTT_PASSWORD` | — | MQTT password (set in `.env`, do not commit) |
+| `WEBRTC_CANDIDATES` | (see `.env.example`) | WebRTC ICE candidates (comma-separated) |
 | `WEBRTC_LISTEN` | `:8555/tcp` | WebRTC listen address |
 | `DETECTOR_TYPE` | `edgetpu` | Detector type for config generation |
 | `DETECTOR_DEVICE` | `pci` | Detector device (`pci` or `usb`) |
@@ -293,15 +303,26 @@ Frigate-SimpleUI/
 
 ---
 
+## Common issues
+
+| Issue | What to try |
+|-------|-------------|
+| **"Frigate not reachable" or config won’t load** | Check `FRIGATESIMPLEUI_URL` and `GO2RTC_URL` in `.env`. Ensure Frigate and go2rtc are running and reachable from the machine running Frigate-SimpleUI (no firewall blocking, correct IP/port). |
+| **Stream test or snapshot fails** | Ensure **ffmpeg** is installed on the same machine as Frigate-SimpleUI. For RTSP, check camera credentials and that the stream URL is correct (often `rtsp://user:pass@ip:554/...`). |
+| **Save to Frigate fails** | Frigate must allow config writes (API enabled). If you use auth or a reverse proxy, ensure the SimpleUI server can authenticate or is allowed through. |
+| **Scan finds no cameras** | ONVIF/SADP discovery uses the server’s network. Run the server on the same VLAN as the cameras, or point it at the right interface. Firewall may block discovery packets. |
+| **Build fails (`npm run build`)** | Run `npm run install:all` first. If the client fails, check Node version (>= 14) and try deleting `client/node_modules` and running `npm run install:all` again. |
+
+---
+
 ## Contributing
 
-Contributions are welcome! Here's how you can help:
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for dev setup, how to run the build, and PR guidelines. Summary:
 
-1. **Fork** the repository
-2. **Create a branch** for your feature or bugfix (`git checkout -b feature/my-feature`)
+1. **Fork** the repository and create a branch from `main`
+2. **Install and build**: `npm run install:all` and `npm run build`
 3. **Make your changes** and test locally
-4. **Commit** with a clear message
-5. **Open a Pull Request** describing what you changed and why
+4. **Open a Pull Request** using the PR template
 
 ### Development tips
 
@@ -324,7 +345,7 @@ Contributions are welcome! Here's how you can help:
 
 ## License
 
-This project is licensed under the [ISC License](https://opensource.org/licenses/ISC).
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
