@@ -7,6 +7,12 @@ Stop hand-editing YAML. Frigate-SimpleUI lets you discover cameras on your netwo
 ![Frigate-SimpleUI Dashboard Screenshot](client/public/screenshot1.png)
 
 
+![Frigate-SimpleUI Dashboard Screenshot](client/public/screenshot2.png)
+
+
+![Frigate-SimpleUI Dashboard Screenshot](client/public/screenshot3.png)
+
+
 ---
 
 
