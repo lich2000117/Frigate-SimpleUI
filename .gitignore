@@ -6,19 +6,8 @@
 /client/build/
 
 /client/public/static
-/client/public/index.html
 /client/public/asset-manifest.json
-/client/public/favicon.ico
-/client/public/logo192.png
-/client/public/logo512.png
-/client/public/robots.txt
 /client/public/service-worker.js
-/client/public/manifest.json
-/client/public/precache-manifest.js
-/client/public/precache-manifest.js
-/client/public/precache-manifest.js
-/client/public/precache-manifest.js
-/client/public/precache-manifest.js
 /client/public/precache-manifest.js
 
 # Testing
